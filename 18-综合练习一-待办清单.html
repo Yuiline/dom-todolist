@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>第18题：待办清单</title>
+<style>body{font-family:"Microsoft YaHei",system-ui,sans-serif;padding:16px;line-height:1.8;max-width:480px}
+input,button{font-size:16px;padding:6px}
+#list{padding:0}
+#list li{border:1px solid #ccc;padding:8px 10px;margin:6px 0;cursor:pointer;list-style:none;
+         display:flex;justify-content:space-between;align-items:center}
+#list li.done{text-decoration:line-through;color:#999;background:#f5f5f5}
+.del{color:#c00;cursor:pointer;margin-left:12px;font-weight:bold}
+#tip{color:#c00;height:22px}
+#stat{color:#06c}</style>
+</head>
+<body>
+  <h3>我的待办清单</h3>
+  <p>
+    <input id="todo" type="text" placeholder="输入待办事项">
+    <button id="add">添加</button>
+    <button id="clear">全部清空</button>
+  </p>
+  <p id="tip"></p>
+  <ul id="list"></ul>
+  <p id="stat">共 0 项，完成 0 项</p>
+
+  <script>
+    let todothing = document.getElementById("todo")
+    let add    = document.getElementById("add")
+    let delall = document.getElementById("clear")
+    let list   = document.getElementById('list')
+    let stat   = document.getElementById("stat")
+
+    let tip    = document.getElementById("tip")
+
+    // 统计：每次列表有变化就调用一次
+    function renderStat() {
+      const done = list.querySelectorAll("li.done").length
+      stat.textContent = "共 " + list.children.length + " 项，完成 " + done + " 项"
+    }
+
+    add.addEventListener("click",function(){
+      const text = todothing.value.trim()
+      if (text === "") {
+        tip.textContent = "请先输入内容"
+        return
+      }
+      tip.textContent = ""
+      const li = document.createElement("li")
+      li.textContent = text
+
+      const del = document.createElement("span")
+      del.textContent = "删除"
+      del.className = "del"
+      li.appendChild(del)
+
+      list.appendChild(li)
+      todothing.value = ""
+      renderStat()
+    })
+    // 输入框里按回车也能添加（借用"添加"按钮的点击）
+    todothing.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") add.click()
+    })
+    delall.addEventListener("click",
+      function(){list.innerHTML = ""
+      renderStat()
+    })
+    list.addEventListener("click",function(e){
+      const li = e.target.closest("li")
+      if (!li) return
+      if (e.target.classList.contains("del")) {
+      li.remove()     }                 
+       else {
+       li.classList.toggle("done")    
+    }
+      renderStat()
+    })
+
+    // 页面打开时先算一次，保证统计和列表一致
+    renderStat()
+  </script>
+</body>
+</html>
