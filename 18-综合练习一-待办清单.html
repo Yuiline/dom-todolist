@@ -2,83 +2,184 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>第18题：待办清单</title>
-<style>body{font-family:"Microsoft YaHei",system-ui,sans-serif;padding:16px;line-height:1.8;max-width:480px}
-input,button{font-size:16px;padding:6px}
-#list{padding:0}
-#list li{border:1px solid #ccc;padding:8px 10px;margin:6px 0;cursor:pointer;list-style:none;
-         display:flex;justify-content:space-between;align-items:center}
-#list li.done{text-decoration:line-through;color:#999;background:#f5f5f5}
-.del{color:#c00;cursor:pointer;margin-left:12px;font-weight:bold}
-#tip{color:#c00;height:22px}
-#stat{color:#06c}</style>
+<title>与yuiline的时光~</title>
+<style>
+  #playIcon {
+    position: fixed;
+    right: 675px;
+    bottom : 300px;
+
+
+  }
+#nextIcon{
+  position: fixed;
+  right   : 625px ;
+  bottom  : 302px
+
+
+}
+
+
+
+
+
+
+body{margin:0;font-family:"Microsoft YaHei",system-ui,sans-serif;line-height:1.8}
+/* ---------- 待办面板（星光蓝） ---------- */
+#todoOverlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+       background:rgba(3,12,24,.5);backdrop-filter:blur(4px);z-index:4;
+       opacity:0;visibility:hidden;transition:opacity .3s ease}
+#todoOverlay.open{opacity:1;visibility:visible}
+#app{width:420px;padding:22px 26px;border-radius:16px;color:#cfeaff;
+       background:rgba(10,30,55,.88);border:1px solid rgba(142,216,255,.45);
+       box-shadow:0 0 28px rgba(110,190,255,.35);font-family:Bahnschrift,"Segoe UI",sans-serif}
+#app h3{margin:0 0 14px;font-size:20px;color:#8ed8ff;letter-spacing:3px;text-align:center}
+#app p{display:flex;gap:8px;margin:10px 0}
+#app input{flex:1;min-width:0;padding:9px 12px;border-radius:10px;font-size:14px;font-family:inherit;
+       color:#e8f6ff;background:rgba(142,216,255,.12);border:1px solid rgba(142,216,255,.35);outline:none}
+#app input::placeholder{color:rgba(207,234,255,.45)}
+#app button{cursor:pointer;padding:9px 16px;border:0;border-radius:10px;font-size:14px;
+       font-family:inherit;color:#0a1e33;background:linear-gradient(90deg,#8ed8ff,#4fb3ff)}
+#app button:hover{filter:brightness(1.08)}
+#list{padding:0;margin:14px 0}
+#list li{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;
+       margin:0;list-style:none;cursor:pointer;font-size:15px;
+       border-top:1px solid rgba(142,216,255,.18)}
+#list li.done{text-decoration:line-through;color:rgba(207,234,255,.45)}
+.del{margin-left:auto;font-size:13px;color:#ff9db0;cursor:pointer}
+#tip{min-height:20px;margin:4px 0 0;font-size:13px;color:#ffb3c1}
+#stat{font-size:13px;color:#8ed8ff;justify-content:flex-end;margin:8px 0 0}
+#app .hint{font-size:11px;opacity:.5;justify-content:center;margin:12px 0 0}
+#musicBar{display:flex;gap:8px;align-items:center}
+#musicBar img{width:44px;height:44px;object-fit:contain;cursor:pointer}
+#dock{position:fixed;left:28px;top:0;bottom:0;padding:28px 0;display:flex;
+       flex-direction:column;align-items:center;pointer-events:none;z-index:2}
+#dockToggle{width:100px;height:100px;object-fit:contain;cursor:pointer;pointer-events:auto;
+       filter:drop-shadow(0 0 10px rgba(110,190,255,.55))}
+#dockPanel{flex:1;width:100%;display:flex;flex-direction:column;align-items:center;
+       justify-content:space-evenly}
+#dockPanel img{width:130px;height:130px;object-fit:contain;cursor:pointer;
+       opacity:0;transform:translateY(-14px);pointer-events:none;
+       transition:opacity .35s ease,transform .35s ease}
+#dock.open #dockPanel img{opacity:1;transform:translateY(0);pointer-events:auto}
+#dock.open #dockPanel img:nth-child(1){transition-delay:0s}
+#dock.open #dockPanel img:nth-child(2){transition-delay:.08s}
+#dock.open #dockPanel img:nth-child(3){transition-delay:.16s}
+#dock.open #dockPanel img:nth-child(4){transition-delay:.24s}
+#statsPanel{position:fixed;left:50%;top:50%;width:260px;padding:20px 24px;text-align:center;
+       color:#cfeaff;background:rgba(10,30,55,.72);border:1px solid rgba(142,216,255,.45);
+       border-radius:14px;font-family:Bahnschrift,"Segoe UI",sans-serif;letter-spacing:1px;
+       box-shadow:0 0 24px rgba(110,190,255,.35);backdrop-filter:blur(6px);cursor:pointer;
+       transform:translate(-50%,-50%) scale(.96);opacity:0;visibility:hidden;z-index:3;
+       transition:opacity .3s ease,transform .3s ease}
+#statsPanel.open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+#statsPanel h3{margin:0 0 12px;font-size:20px;color:#8ed8ff;letter-spacing:3px}
+#statsPanel p{margin:6px 0;font-size:15px}
+#statsPanel span{color:#d6f1ff;font-weight:600}
+#statsPanel .hint{font-size:11px;opacity:.55;margin-top:14px}
+#shopOverlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+       background:rgba(3,12,24,.55);backdrop-filter:blur(4px);z-index:4;
+       opacity:0;visibility:hidden;transition:opacity .3s ease}
+#shopOverlay.open{opacity:1;visibility:visible}
+#shopPanel{width:420px;padding:22px 26px;color:#cfeaff;border-radius:16px;
+       background:rgba(10,30,55,.88);border:1px solid rgba(142,216,255,.45);
+       box-shadow:0 0 28px rgba(110,190,255,.35);font-family:Bahnschrift,"Segoe UI",sans-serif}
+#shopPanel h3{margin:0 0 6px;font-size:20px;color:#8ed8ff;letter-spacing:3px;text-align:center}
+#shopStats{font-size:13px;text-align:center;opacity:.9;margin-bottom:14px}
+#shopStats span{color:#d6f1ff;font-weight:600}
+.shopItem{display:flex;align-items:center;gap:10px;padding:9px 0;
+       border-top:1px solid rgba(142,216,255,.18)}
+.shopName{flex:1;font-size:15px}
+.shopInfo{font-size:12px;opacity:.8}
+.shopItem button{cursor:pointer;padding:5px 12px;border-radius:8px;border:0;font-size:13px;
+       font-family:inherit;color:#0a1e33;background:linear-gradient(90deg,#8ed8ff,#4fb3ff)}
+#shopMsg{min-height:20px;margin:12px 0 0;font-size:13px;color:#8ed8ff;text-align:center}
+#shopPanel .hint{margin:6px 0 0;font-size:11px;opacity:.5;text-align:center}
+#clock{position:fixed;top:3%;left:20%;color:#8ed8ff;font-size:40px;font-weight:600;
+       font-family:Bahnschrift,"Segoe UI",sans-serif;letter-spacing:1px;
+       font-variant-numeric:tabular-nums;
+       text-shadow:0 0 12px rgba(110,190,255,.85),0 2px 10px rgba(0,0,0,.5)}
+#progressWrap{position:fixed;right:550px;bottom:275px;width:294px;
+       display:flex;align-items:center;gap:7px;color:#8ed8ff;font-size:11px;
+       font-family:Bahnschrift,"Segoe UI",sans-serif;letter-spacing:1px;
+       text-shadow:0 0 8px rgba(110,190,255,.6)}
+#progress{position:relative;flex:1;height:4px;border-radius:999px;touch-action:none;
+       background:rgba(142,216,255,.22);cursor:pointer}
+#progressFill{height:100%;width:0;border-radius:999px;
+       background:linear-gradient(90deg,#4fb3ff,#8ed8ff);
+       box-shadow:0 0 10px rgba(110,190,255,.9)}
+#progressDot{position:absolute;top:50%;left:0;width:10px;height:10px;border-radius:50%;
+       background:#d6f1ff;transform:translate(-50%,-50%);
+       box-shadow:0 0 12px rgba(142,216,255,1)}
+#bgVideo{position:fixed;left:0;top:0;width:100%;height:100%;object-fit:cover;z-index:-1}</style>
 </head>
+
 <body>
-  <h3>我的待办清单</h3>
-  <p>
-    <input id="todo" type="text" placeholder="输入待办事项">
-    <button id="add">添加</button>
-    <button id="clear">全部清空</button>
-  </p>
-  <p id="tip"></p>
-  <ul id="list"></ul>
-  <p id="stat">共 0 项，完成 0 项</p>
+  <video id="bgVideo" src="bg.mp4" autoplay muted loop playsinline></video>
 
-  <script>
-    let todothing = document.getElementById("todo")
-    let add    = document.getElementById("add")
-    let delall = document.getElementById("clear")
-    let list   = document.getElementById('list')
-    let stat   = document.getElementById("stat")
+  <div id="todoOverlay">
+    <div id="app">
+      <h3>我的待办清单</h3>
+      <p>
+        <input id="todo" type="text" placeholder="输入待办事项">
+        <button id="add">添加</button>
+        <button id="clear">全部清空</button>
+      </p>
+      <p id="tip"></p>
+      <ul id="list"></ul>
+      <p id="stat">共 0 项，完成 0 项</p>
+      <p class="hint">点空白处关闭</p>
+    </div>
+  </div>
 
-    let tip    = document.getElementById("tip")
+  <div id="musicBar">
+    <img id="playIcon" src="播放.png" alt="播放">
+    <img id="nextIcon" src="切歌.png" alt="切歌">
+  </div>
 
-    // 统计：每次列表有变化就调用一次
-    function renderStat() {
-      const done = list.querySelectorAll("li.done").length
-      stat.textContent = "共 " + list.children.length + " 项，完成 " + done + " 项"
-    }
+  <div id="dock">
+    <img id="dockToggle" src="收起键.png" alt="展开菜单">
+    <div id="dockPanel">
+      <img id="menuTodo"    src="待办事项.png" alt="待办事项">
+      <img id="menuFavor"   src="好感度.png"   alt="好感度">
+      <img id="menuShop"    src="商店.png"     alt="商店">
+      <img id="menuSetting" src="设置.png"     alt="设置">
+    </div>
+  </div>
 
-    add.addEventListener("click",function(){
-      const text = todothing.value.trim()
-      if (text === "") {
-        tip.textContent = "请先输入内容"
-        return
-      }
-      tip.textContent = ""
-      const li = document.createElement("li")
-      li.textContent = text
+  <div id="clock">00:00:00</div>
 
-      const del = document.createElement("span")
-      del.textContent = "删除"
-      del.className = "del"
-      li.appendChild(del)
+  <div id="statsPanel">
+    <h3>Yuiline</h3>
+    <p>当前好感度：<span id="favorVal">0</span> / 1000</p>
+    <p>金币：<span id="coinVal">0</span></p>
+    <p class="hint">点一下关闭</p>
+  </div>
 
-      list.appendChild(li)
-      todothing.value = ""
-      renderStat()
-    })
-    // 输入框里按回车也能添加（借用"添加"按钮的点击）
-    todothing.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") add.click()
-    })
-    delall.addEventListener("click",
-      function(){list.innerHTML = ""
-      renderStat()
-    })
-    list.addEventListener("click",function(e){
-      const li = e.target.closest("li")
-      if (!li) return
-      if (e.target.classList.contains("del")) {
-      li.remove()     }                 
-       else {
-       li.classList.toggle("done")    
-    }
-      renderStat()
-    })
+  <div id="shopOverlay">
+    <div id="shopPanel">
+      <h3>商店</h3>
+      <div id="shopStats">好感度 <span id="shopFavor">0</span> / 1000 ｜ 金币 <span id="shopCoin">0</span></div>
+      <div id="shopList"></div>
+      <p id="shopMsg"></p>
+      <p class="hint">点空白处关闭</p>
+    </div>
+  </div>
 
-    // 页面打开时先算一次，保证统计和列表一致
-    renderStat()
-  </script>
+  <div id="progressWrap">
+    <span id="curTime">0:00</span>
+    <div id="progress">
+      <div id="progressFill"></div>
+      <div id="progressDot"></div>
+    </div>
+    <span id="durTime">0:00</span>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="music.js"></script>
+  <script src="clock.js"></script>
+  <script src="dock.js"></script>
+  <script src="stats.js"></script>
+  <script src="shop.js"></script>
 </body>
 </html>
