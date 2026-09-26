@@ -2,6 +2,10 @@ MIT License
 
 Copyright (c) 2026 Yuiline
 
+【适用范围】
+下面的 MIT 协议只覆盖本仓库中由项目作者编写的代码，也就是这几类文件：
+*.html、*.js、*.md、.gitignore。
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -19,3 +23,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+--------------------------------------------------------------------------
+
+【素材声明】音乐、图片、视频不在上面的授权范围内
+
+本仓库里下面这些文件不是作者原创，版权属于各自的作者：
+
+  背景视频：bg.mp4
+  音乐    ：5_20am(1) (1).mp3、海愿.mp3
+  图片    ：播放.png、切歌.png、暂停.png、收起键.png、
+            待办事项.png、好感度.png、商店.png、设置.png、商店背景.png
+
+它们被放进这个个人学习项目里，仅用于自己练习，没有商业用途，
+作者也没有取得这些素材的授权或版权。
+
+如果你要使用或再分发本项目：代码部分可以随便用（遵守上面的 MIT）；
+素材部分请自行向原作者取得许可，或者替换成你自己拥有版权的素材。
