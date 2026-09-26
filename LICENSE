@@ -1,44 +1,39 @@
-MIT License
-
-Copyright (c) 2026 Yuiline
-
-【适用范围】
-下面的 MIT 协议只覆盖本仓库中由项目作者编写的代码，也就是这几类文件：
-*.html、*.js、*.md、.gitignore。
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+版权所有 © 2026 Yuiline
+All Rights Reserved（保留所有权利）
 
 --------------------------------------------------------------------------
 
-【素材说明】哪些是第三方素材
+【这是什么】
 
-▶ 音乐（第三方，不在 MIT 范围内）
-    5_20am(1) (1).mp3、海愿.mp3
-    这两首不是我创作的，版权归原作者。只是为了个人学习放进了这个项目，
-    没有商业用途，也没有取得授权。
-    如果你要使用或再分发这首曲子，请自行联系原作者，或者换成你有权使用的音乐。
+这是我（Yuiline）的个人作品，包括这个项目里的代码、AI 生成的图片和视频。
+它放在 GitHub 上，是为了记录自己的学习过程，也当作作品集展示。
 
-▶ 背景视频（来源不明，暂按第三方处理）
-    bg.mp4
-    从网络下载，版权归属不明确。同样只用于个人学习，未商用。
+除下面标注的音乐之外，本仓库的全部内容都保留版权。
 
-▶ 图片（AI 生成，随代码一起按 MIT 处理）
-    播放.png、切歌.png、暂停.png、收起键.png、待办事项.png、好感度.png、
-    商店.png、设置.png、商店背景.png
-    这些是用 AI 生图工具生成、由我挑选和使用的，视作本项目的一部分。
+--------------------------------------------------------------------------
+
+【你可以做的】
+
+  · 阅读、学习、参考其中的思路和写法
+  · 在自己写的代码里借鉴某段做法（比如某种逻辑怎么写）
+  · 把仓库链接分享给别人
+
+【想这么做之前，请先问我】
+
+  · 把代码或素材原样复制、整体搬到别的项目里再发布
+  · 用于商业用途
+  · 去掉或修改署名之后再发布
+
+说白了：看看、学学、参考思路都没问题；
+整站照搬、拿去当自己的作品、或者商用，请先联系我。
+
+--------------------------------------------------------------------------
+
+【音乐是例外】
+
+  5_20am(1) (1).mp3
+  海愿.mp3
+
+这两首曲子不是我创作的，版权归原作者所有。
+它们只是被我放进了这个个人学习项目里，没有商业用途，也没有取得授权。
+使用或再分发请自行联系原作者，或者替换成你有权使用的音乐。
